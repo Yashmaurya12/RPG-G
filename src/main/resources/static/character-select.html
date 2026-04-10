@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choose Your Fighter — Multiverse Battle Engine</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <div class="stars-bg"></div>
+  <div class="page">
+    <div class="char-select-layout">
+
+      <div class="page-header">
+        <div>
+          <h1 class="neon-text">CHOOSE YOUR FIGHTER</h1>
+          <p style="font-size:0.8rem;color:var(--text-dim);margin-top:2px">
+            vs <span id="opponent-label" style="color:var(--violet)"></span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Selection Status -->
+      <div class="glass" style="padding:16px 24px">
+        <div class="selection-status">
+          <div class="sel-player">
+            <div class="sel-dot" id="p1-dot"></div>
+            <div>
+              <div id="p1-name-label" style="font-family:'Orbitron',sans-serif;font-size:0.8rem"></div>
+              <div id="p1-sel-label" style="font-size:0.7rem;color:var(--text-dim)">Choosing…</div>
+            </div>
+          </div>
+          <div style="font-family:'Orbitron',sans-serif;font-size:1.2rem;color:var(--text-dim)">VS</div>
+          <div class="sel-player">
+            <div class="sel-dot" id="p2-dot"></div>
+            <div>
+              <div id="p2-name-label" style="font-family:'Orbitron',sans-serif;font-size:0.8rem"></div>
+              <div id="p2-sel-label" style="font-size:0.7rem;color:var(--text-dim)">Choosing…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Class Tabs -->
+      <div class="class-tabs" id="class-tabs">
+        <button class="class-tab active" id="tab-MAGE" onclick="switchClass('MAGE')">🔮 Mage</button>
+        <button class="class-tab" id="tab-WARRIOR" onclick="switchClass('WARRIOR')">⚔️ Warrior</button>
+        <button class="class-tab" id="tab-CYBORG" onclick="switchClass('CYBORG')">🤖 Cyborg</button>
+        <button class="class-tab" id="tab-RANGER" onclick="switchClass('RANGER')">🏹 Ranger</button>
+      </div>
+
+      <!-- Characters Grid -->
+      <div class="characters-grid" id="chars-grid"></div>
+
+      <!-- Ready Button -->
+      <div style="display:flex;justify-content:center;margin-top:8px">
+        <button class="btn btn-primary btn-lg" id="ready-btn" disabled>Select a Character First</button>
+      </div>
+
+    </div>
+  </div>
+
+  <audio id="bg-music" loop preload="auto">
+    <source src="/character.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/character-select.js"></script>
+</body>
+
+</html>

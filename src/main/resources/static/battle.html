@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Battle — Multiverse Battle Engine</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body class="battle-body">
+  <div class="stars-bg"></div>
+  <div class="page no-scroll">
+    <div class="pkmn-layout">
+
+      <!-- Main Game Arena -->
+      <div class="pkmn-arena">
+
+        <!-- Top Left: Opponent HUD -->
+        <div class="glass pkmn-hud enemy-hud" id="opponent-card">
+          <div class="pkmn-hud-header">
+            <span class="fighter-name" id="opponent-name">—</span>
+            <span class="fighter-char" id="opponent-char"></span>
+          </div>
+          <div class="pkmn-hp-box">
+            <div class="hp-label">HP <span id="opponent-hp-text" class="hp-text-num">—</span></div>
+            <div class="hp-track">
+              <div class="hp-fill hp-high" id="opponent-hp-bar" style="width:100%"></div>
+            </div>
+          </div>
+          <div class="defending-badge" id="opponent-defend-badge" style="text-align:right"></div>
+        </div>
+
+        <!-- Top Right: Opponent Sprite -->
+        <div class="pkmn-sprite-container enemy-sprite-pos">
+          <div class="sprite-shadow"></div>
+          <span class="fighter-emoji emoji-front" id="opponent-emoji">⚔️</span>
+        </div>
+
+        <!-- Bottom Left: Local Sprite -->
+        <div class="pkmn-sprite-container player-sprite-pos">
+          <div class="sprite-shadow"></div>
+          <span class="fighter-emoji emoji-back" id="local-emoji">⚔️</span>
+        </div>
+
+        <!-- Bottom Right: Local HUD -->
+        <div class="glass pkmn-hud player-hud" id="local-card">
+          <div class="pkmn-hud-header">
+            <span class="fighter-name" id="local-name">—</span>
+            <span class="fighter-char" id="local-char"></span>
+          </div>
+          <div class="pkmn-hp-box">
+            <div class="hp-label">HP</div>
+            <div class="hp-track">
+              <div class="hp-fill hp-high" id="local-hp-bar" style="width:100%"></div>
+            </div>
+          </div>
+          <div class="hp-text-numerical" id="local-hp-text">—</div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div id="local-turn-ind" class="turn-indicator hidden">YOUR TURN</div>
+            <div class="defending-badge" id="local-defend-badge" style="text-align:right"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Panel -->
+      <div class="pkmn-control-panel glass">
+
+        <!-- Left: Dialog / Log Box -->
+        <div class="pkmn-dialog-box">
+          <div class="combat-log" id="combat-log">
+            <div class="log-line" style="color:var(--text-dim)">Battle starting…</div>
+          </div>
+          <div class="turn-banner hidden" id="turn-banner" style="display:none">Loading battle…</div>
+        </div>
+
+        <!-- Right: Action Menu (2x2 Grid) -->
+        <div class="pkmn-action-grid">
+          <button class="action-btn pkmn-btn-attack" id="btn-attack" onclick="doAction('ATTACK')" disabled>
+            <span>⚔️</span> FIGHT
+          </button>
+          <button class="action-btn pkmn-btn-special" id="btn-special" onclick="doAction('SPECIAL')" disabled>
+            <span>✨</span> <span id="special-label">SP. ATK</span>
+            <div class="cooldown-text" id="special-cd-text"></div>
+          </button>
+          <button class="action-btn pkmn-btn-defend" id="btn-defend" onclick="doAction('DEFEND')" disabled>
+            <span>🛡️</span> DEFEND
+          </button>
+          <button class="action-btn pkmn-btn-run" id="btn-run" onclick="doAction('FORFEIT')" disabled>
+            <span>💨</span> RUN
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Victory Overlay -->
+  <div class="victory-overlay hidden" id="victory-overlay">
+    <div class="glass victory-card">
+      <span class="victory-emoji" id="victory-emoji">🏆</span>
+      <div class="victory-title neon-text" id="victory-title">VICTORY!</div>
+      <div class="victory-sub" id="victory-sub"></div>
+      <div style="display:flex;gap:16px;justify-content:center">
+        <a href="/lobby.html" class="btn btn-primary">Play Again</a>
+        <a href="/index.html" class="btn btn-ghost">Home</a>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bg-music" loop preload="auto">
+    <source src="/battlemusic.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
+  <script src="/js/app.js?v=2"></script>
+  <script src="/js/battle.js?v=2"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lobby — Multiverse Battle Engine</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="stars-bg"></div>
+<div class="page">
+<div class="lobby-layout">
+
+  <!-- Header -->
+  <div class="lobby-header">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <a href="/index.html" class="btn btn-ghost btn-sm">← Home</a>
+      <h1 class="neon-text" style="font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:900">BATTLE LOBBY</h1>
+      <a href="/settings.html" class="btn btn-ghost btn-sm">⚙ Settings</a>
+    </div>
+  </div>
+
+  <!-- Register Card -->
+  <div class="glass register-card" id="register-section">
+    <div class="lobby-title">🚀 Enter the Arena</div>
+    <div class="register-form">
+      <input class="input" id="name-input" type="text" placeholder="Enter your warrior name..." maxlength="20" autocomplete="off"/>
+      <button class="btn btn-primary" id="join-btn" style="white-space:nowrap">Join Battle</button>
+    </div>
+    <div class="error-msg" id="reg-error"></div>
+  </div>
+
+  <!-- Logged-in Header -->
+  <div class="glass" id="logged-in-bar" style="display:none;padding:16px 24px;display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div>
+      <span style="font-family:'Orbitron',sans-serif;font-size:0.8rem;color:var(--text-dim)">PLAYING AS</span>
+      <span id="logged-name" style="font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--cyan);margin-left:8px"></span>
+    </div>
+    <button class="btn btn-ghost btn-sm" id="logout-btn">Logout</button>
+  </div>
+
+  <!-- Players Online -->
+  <div>
+    <div class="section-header">⚡ Players Online (<span id="player-count">0</span>)</div>
+    <div class="glass" style="padding:24px">
+      <div class="players-grid" id="players-grid">
+        <div class="empty-lobby" id="empty-msg">No warriors online yet. Be the first!</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end lobby-layout -->
+</div><!-- end page -->
+
+<!-- Challenge Toast -->
+<div class="toast hidden" id="challenge-toast">
+  <div class="toast-title">⚔ CHALLENGE RECEIVED!</div>
+  <div class="toast-body" id="toast-body">Someone wants to fight you!</div>
+  <div class="toast-actions">
+    <button class="btn btn-primary btn-sm" id="toast-accept">Accept</button>
+    <button class="btn btn-ghost btn-sm" id="toast-decline">Decline</button>
+  </div>
+</div>
+
+<audio id="bg-music" loop preload="auto" data-start="31">
+  <source src="/menu-music.mp3" type="audio/mpeg"/>
+</audio>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/lobby.js"></script>
+</body>
+</html>

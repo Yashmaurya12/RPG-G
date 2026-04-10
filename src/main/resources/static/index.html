@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multiverse Battle Engine — Enter the Wormhole</title>
+  <meta name="description" content="A multiplayer turn-based RPG where warriors clash across wormholes in space. Choose your class, challenge opponents, and fight for glory."/>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="stars-bg"></div>
+
+<section class="hero page">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="game-title neon-text">MULTIVERSE<br>BATTLE ENGINE</h1>
+    <p class="game-subtitle">Warriors. Wormholes. War.</p>
+    <div class="hero-buttons">
+      <a href="/lobby.html" class="btn btn-primary btn-lg" id="play-btn">
+        ⚔&nbsp; PLAY
+      </a>
+      <a href="/settings.html" class="btn btn-ghost btn-lg" id="settings-btn">
+        ⚙&nbsp; SETTINGS
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Background Music -->
+<audio id="bg-music" loop preload="auto" data-start="31">
+  <source src="/menu-music.mp3" type="audio/mpeg"/>
+</audio>
+
+<script src="/js/app.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    initMusic();
+    // Animate buttons in
+    document.querySelectorAll('.hero-buttons .btn').forEach((btn, i) => {
+      btn.style.opacity = '0';
+      btn.style.transform = 'translateY(30px)';
+      setTimeout(() => {
+        btn.style.transition = 'all 0.6s ease';
+        btn.style.opacity = '1';
+        btn.style.transform = 'translateY(0)';
+      }, 400 + i * 150);
+    });
+  });
+</script>
+</body>
+</html>

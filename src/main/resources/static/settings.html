@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings — Multiverse Battle Engine</title>
+  <meta name="description" content="Configure audio settings for Multiverse Battle Engine."/>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="stars-bg"></div>
+<div class="settings-page page">
+  <div class="glass settings-card">
+    <div class="page-header" style="margin-bottom:8px">
+      <a href="/index.html" class="btn btn-ghost btn-sm" id="back-btn">← Back</a>
+    </div>
+    <h1 class="settings-title neon-text">Settings</h1>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:8px">Configure your battle experience</p>
+    <div class="settings-divider"></div>
+
+    <!-- Music Toggle -->
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">🎵 Background Music</div>
+        <div class="settings-sub">Space ambient soundtrack</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="music-toggle" checked/>
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <!-- Volume -->
+    <div class="settings-row" style="flex-direction:column;align-items:stretch;gap:12px">
+      <div class="settings-label">🔊 Volume</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:1.1rem">🔈</span>
+        <div class="volume-track">
+          <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="15"/>
+        </div>
+        <span style="font-size:1.1rem">🔊</span>
+        <span id="vol-display" style="font-family:'Orbitron',sans-serif;font-size:0.8rem;color:var(--cyan);min-width:36px;text-align:right">15%</span>
+      </div>
+    </div>
+
+    <div class="settings-divider"></div>
+
+    <!-- Quick nav -->
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:8px">
+      <a href="/index.html" class="btn btn-ghost">🏠 Home</a>
+      <a href="/lobby.html" class="btn btn-primary">⚔ Play Now</a>
+    </div>
+  </div>
+</div>
+
+<audio id="bg-music" loop preload="auto" data-start="31">
+  <source src="/menu-music.mp3" type="audio/mpeg"/>
+</audio>
+
+<script src="/js/app.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    initMusic();
+    const toggle = document.getElementById('music-toggle');
+    const slider = document.getElementById('volume-slider');
+    const volDisplay = document.getElementById('vol-display');
+
+    // Load saved state
+    toggle.checked = localStorage.getItem('musicOn') !== 'false';
+    const savedVol = parseFloat(localStorage.getItem('musicVolume') || '0.15') * 100;
+    slider.value = savedVol;
+    volDisplay.textContent = Math.round(savedVol) + '%';
+
+    toggle.addEventListener('change', () => setMusic(toggle.checked));
+
+    slider.addEventListener('input', () => {
+      const v = slider.value / 100;
+      setVolume(v);
+      volDisplay.textContent = slider.value + '%';
+    });
+  });
+</script>
+</body>
+</html>
