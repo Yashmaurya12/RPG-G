@@ -5,7 +5,8 @@ import com.multiverse.rpg.service.GameService;
 import com.multiverse.rpg.service.LobbyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.messaging.handler.annotation.*;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
@@ -96,6 +97,10 @@ public class LobbyController {
     /** Clean up on WebSocket disconnect */
     @EventListener
     public void onDisconnect(SessionDisconnectEvent event) {
-        // User requested: do not discard players on disconnect, keep them until server shuts down
+        String wsSessionId = event.getSessionId();
+        if (wsSessionId != null) {
+            // Remove the player from the lobby to completely erase their data on disconnect
+            lobbyService.removePlayerBySession(wsSessionId);
+        }
     }
 }

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Battle — Multiverse Battle Engine</title>
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/style.css?v=3" />
 </head>
 
 <body class="battle-body">
@@ -15,6 +15,17 @@
 
       <!-- Main Game Arena -->
       <div class="pkmn-arena">
+        <!-- New Stadium -->
+        <div class="stadium-backdrop"></div>
+
+        <!-- Reality Banner -->
+        <div id="reality-banner" class="reality-banner">🌀 REALITY: NEUTRAL</div>
+
+        <!-- Rift & Loot -->
+        <div id="rift-loot" class="rift-loot">
+          <div class="loot-emoji" id="loot-emoji">🗡️</div>
+          <div class="loot-name" id="loot-name">Holy Avenger</div>
+        </div>
 
         <!-- Top Left: Opponent HUD -->
         <div class="glass pkmn-hud enemy-hud" id="opponent-card">
@@ -32,15 +43,15 @@
         </div>
 
         <!-- Top Right: Opponent Sprite -->
-        <div class="pkmn-sprite-container enemy-sprite-pos">
+        <div class="pkmn-sprite-container enemy-sprite-pos" id="opponent-container">
           <div class="sprite-shadow"></div>
-          <span class="fighter-emoji emoji-front" id="opponent-emoji">⚔️</span>
+          <img class="fighter-sprite" id="opponent-img" src="" alt="" style="display:none;" />
         </div>
 
         <!-- Bottom Left: Local Sprite -->
-        <div class="pkmn-sprite-container player-sprite-pos">
+        <div class="pkmn-sprite-container player-sprite-pos" id="local-container">
           <div class="sprite-shadow"></div>
-          <span class="fighter-emoji emoji-back" id="local-emoji">⚔️</span>
+          <img class="fighter-sprite" id="local-img" src="" alt="" style="display:none;" />
         </div>
 
         <!-- Bottom Right: Local HUD -->
@@ -90,6 +101,10 @@
           <button class="action-btn pkmn-btn-run" id="btn-run" onclick="doAction('FORFEIT')" disabled>
             <span>💨</span> RUN
           </button>
+
+          <button id="btn-grab" class="action-btn pkmn-btn-grab hidden" onclick="doAction('GRAB_LOOT')">
+            <span>🎒</span> <span id="grab-label">GRAB</span>
+          </button>
         </div>
       </div>
 
@@ -103,20 +118,20 @@
       <div class="victory-title neon-text" id="victory-title">VICTORY!</div>
       <div class="victory-sub" id="victory-sub"></div>
       <div style="display:flex;gap:16px;justify-content:center">
-        <a href="/lobby.html" class="btn btn-primary">Play Again</a>
-        <a href="/index.html" class="btn btn-ghost">Home</a>
+        <a href="/lobby.html" id="btn-play-again" class="btn btn-primary">Play Again</a>
+        <a href="/index.html" id="btn-home" class="btn btn-ghost">Home</a>
       </div>
     </div>
   </div>
 
   <audio id="bg-music" loop preload="auto">
-    <source src="/battlemusic.mp3" type="audio/mpeg" />
+    <source src="/battlemusic.mp3?v=1" type="audio/mpeg" />
   </audio>
 
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
-  <script src="/js/app.js?v=2"></script>
-  <script src="/js/battle.js?v=2"></script>
+  <script src="/js/app.js?v=3"></script>
+  <script src="/js/battle.js?v=3"></script>
 </body>
 
 </html>

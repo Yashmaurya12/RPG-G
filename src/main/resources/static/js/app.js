@@ -45,7 +45,9 @@ function subscribe(topic, callback) {
   if (!stompClient || !stompClient.connected) return;
   if (subscriptions[topic]) subscriptions[topic].unsubscribe();
   subscriptions[topic] = stompClient.subscribe(topic, msg => {
-    try { callback(JSON.parse(msg.body)); } catch(e) { callback(msg.body); }
+    let payload = msg.body;
+    try { payload = JSON.parse(msg.body); } catch (e) {}
+    callback(payload);
   });
 }
 
@@ -115,8 +117,41 @@ function setVolume(v) {
   localStorage.setItem('musicVolume', v);
 }
 
-// ===================== LOGOUT ON UNLOAD =====================
+// ===================== UI EFFECTS (Custom WAV) =====================
+// Uses the user-provided sci-fi click sound for all interactions
+const SFX_FILE = '/mixkit-sci-fi-click-900.wav?v=3';
+
+function playSFX(type) {
+  const musicOn = localStorage.getItem('musicOn') !== 'false';
+  const volume = parseFloat(localStorage.getItem('musicVolume') || '0.15');
+  if (!musicOn || volume <= 0) return;
+
+  try {
+    const audio = new Audio(SFX_FILE);
+    // Hover is slightly quieter than a click for better balance
+    audio.volume = Math.min(1, type === 'hover' ? volume * 0.4 : volume * 1.0);
+    audio.play().catch(e => {
+        // Skip logging hover blocks to avoid console noise
+        if (type !== 'hover') console.warn("[SFX] Play blocked:", e);
+    });
+  } catch (e) {
+    console.warn("[SFX] Audio error:", e);
+  }
+}
+
+// Global listeners for buttons
+document.addEventListener('mouseover', e => {
+  const btn = e.target.closest('.btn') || e.target.closest('.action-btn') || e.target.closest('.class-tab') || e.target.closest('.char-card');
+  if (btn && !btn.contains(e.relatedTarget)) playSFX('hover');
+});
+
+document.addEventListener('click', e => {
+  if (e.target.closest('.btn') || e.target.closest('.action-btn') || e.target.closest('.class-tab') || e.target.closest('.char-card')) {
+    playSFX('click');
+  }
+});
+
 // ===================== LOGOUT ON UNLOAD =====================
 function setupLogout() {
-  // User requested to keep players registered until server shutdown
+  // Use sessionStorage to track session across page loads
 }

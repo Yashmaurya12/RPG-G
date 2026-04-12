@@ -70,7 +70,9 @@ function buildCharCard(c) {
   div.innerHTML = `
     <div class="char-card-selected-badge">✓ SELECTED</div>
     <div class="char-card-inner">
-      <span class="char-emoji">${c.emoji}</span>
+      <div class="char-img-container">
+        <img src="/img/characters/${c.id}.png" class="char-img" alt="${c.name}">
+      </div>
       <div class="char-name">${c.name}</div>
       <div class="char-class-badge">${c.characterClass}</div>
       <div class="stat-bar">

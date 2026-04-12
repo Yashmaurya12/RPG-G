@@ -103,9 +103,32 @@ document.addEventListener('DOMContentLoaded', () => {
   window.sendChallenge = function(target) {
     if (!App.playerName) { alert('Please register first!'); return; }
     send('/app/challenge', { challenger: App.playerName, target });
-    // Disable all challenge buttons briefly
-    document.querySelectorAll('[id^="challenge-"]').forEach(b => b.disabled = true);
-    setTimeout(() => document.querySelectorAll('[id^="challenge-"]').forEach(b => b.disabled = false), 5000);
+    
+    // UI Feedback: Change button text and disable
+    const btn = document.getElementById(`challenge-${target}`);
+    if (btn) {
+      btn.textContent = '⚔ Challenged';
+      btn.classList.add('btn-ghost');
+      btn.classList.remove('btn-secondary');
+      btn.disabled = true;
+    }
+
+    // Disable all other challenge buttons briefly to prevent spam
+    document.querySelectorAll('[id^="challenge-"]').forEach(b => {
+      if (b !== btn) b.disabled = true;
+    });
+    
+    setTimeout(() => {
+      document.querySelectorAll('[id^="challenge-"]').forEach(b => {
+        b.disabled = false;
+        // Reset the clicked button if match hasn't started
+        if (b === btn && b.textContent === '⚔ Challenged') {
+          b.textContent = '⚔ Challenge';
+          b.classList.remove('btn-ghost');
+          b.classList.add('btn-secondary');
+        }
+      });
+    }, 5000);
   };
 
   // ── Private Events ────────────────────────────────────────

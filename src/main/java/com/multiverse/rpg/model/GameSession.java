@@ -4,7 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameSession {
+    public enum GameState { CHARACTER_SELECT, BATTLE, FINISHED }
+    public enum RealityPhase { NEUTRAL, HIGH_MAGIC, SCI_FI }
+
     private String sessionId;
+    private RealityPhase currentReality = RealityPhase.NEUTRAL;
+    private int realityTurnsLeft = 3;
+    private LootItem activeLoot;
+    private LootItem p1Loot;
+    private LootItem p2Loot;
+
     private String player1Name;
     private String player2Name;
     private CharacterDef character1;
@@ -21,8 +30,6 @@ public class GameSession {
     private GameState state;
     private List<String> combatLog;
     private String winner;
-
-    public enum GameState { CHARACTER_SELECT, BATTLE, FINISHED }
 
     public GameSession(String sessionId, String p1, String p2) {
         this.sessionId = sessionId;
@@ -42,6 +49,17 @@ public class GameSession {
 
     // --- Getters / Setters ---
     public String getSessionId() { return sessionId; }
+    public RealityPhase getCurrentReality() { return currentReality; }
+    public void setCurrentReality(RealityPhase r) { this.currentReality = r; }
+    public int getRealityTurnsLeft() { return realityTurnsLeft; }
+    public void setRealityTurnsLeft(int n) { this.realityTurnsLeft = n; }
+    public LootItem getActiveLoot() { return activeLoot; }
+    public void setActiveLoot(LootItem l) { this.activeLoot = l; }
+    public LootItem getP1Loot() { return p1Loot; }
+    public void setP1Loot(LootItem l) { this.p1Loot = l; }
+    public LootItem getP2Loot() { return p2Loot; }
+    public void setP2Loot(LootItem l) { this.p2Loot = l; }
+
     public String getPlayer1Name() { return player1Name; }
     public String getPlayer2Name() { return player2Name; }
     public CharacterDef getCharacter1() { return character1; }
